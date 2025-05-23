@@ -14,7 +14,7 @@ pipeline {
                     branches: [[name: '*/main']], 
                     userRemoteConfigs: [[
                         url: 'https://github.com/Ayoech/eureka-server',
-                        credentialsId: 'd69f0a09-2e91-40f9-9c00-fd6687d0222e'
+                        credentialsId: '6f7aaeaa-7ecf-43b8-b1fb-4f1758015d56'
                     ]]
                 ])
             }
