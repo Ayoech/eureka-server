@@ -8,9 +8,15 @@ pipeline {
     }
 
     stages {
-        stage('Checkout Code') {
+        stage('Checkout') {
             steps {
-                git 'https://github.com/ton-utilisateur/ton-repo.git'
+                checkout([$class: 'GitSCM', 
+                    branches: [[name: '*/main']], 
+                    userRemoteConfigs: [[
+                        url: 'https://github.com/your-username/your-repo.git',
+                        credentialsId: 'd69f0a09-2e91-40f9-9c00-fd6687d0222e'
+                    ]]
+                ])
             }
         }
 
