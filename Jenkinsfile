@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         IMAGE_NAME = "eureka-server"
+        CONTAINER_NAME = "eureka-container"
         CONTAINER_PORT = "8761"
     }
 
@@ -25,15 +26,12 @@ pipeline {
             }
         }
 
-        stage('Delete Existing K8s Resources') {
+        stage('Run Docker Container') {
             steps {
-                sh "kubectl delete deployment eureka-deployment --ignore-not-found"
-            }
-        }
-
-        stage('Deploy to Kubernetes') {
-            steps {
-                sh "kubectl apply -f deployment.yaml"
+                // Supprimer le container s'il existe déjà
+                sh "docker rm -f ${CONTAINER_NAME} || true"
+                // Lancer le container
+                sh "docker run -d --name ${CONTAINER_NAME} -p ${CONTAINER_PORT}:${CONTAINER_PORT} ${IMAGE_NAME}:latest"
             }
         }
     }
